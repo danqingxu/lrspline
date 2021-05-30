@@ -1,35 +1,39 @@
-#' @title Low-rank Approximation Based on Eigenspaces for Cubic Smoothing Spline Estimates
-#' @description Computes a low-rank approximation based on eigenspaces, where estimation utilizes functions for linear mixed effect model (LME).
+#' @title Nystr\"{o}m Approximation for Cubic Smoothing Spline Estimates
+#' @description Computes a Nystr\"{o}m approximation based on randomly selected columns of $\Sigma$ matrix, where estimation utilizes functions for linear mixed effect model (LME).
 #' @param x The values of independent variable. It should be a vector.
 #' @param y The values of dependent variable. It should be a vector.
 #' @param xg The gridpoints used for approximation of
 #' @param e A list of two elements of "values" and "vectors", which refer respectively, the eigenvalues and eigenfunctions of reproducing kernel for cubic splines at the pre-selected gridpoints (must agree with xg).
-#' @param K An integer value. The truncation parameter indicates the number of eigenvalues/eigenfunctions used in approximation. The default value is 30.
+#' @param p An integer value. The selection parameter indicates the number of columns for random selection and approximation. The default value is 30.
 #' @param method A character string. If "REML" the LME model is fit by maximizing the restricted log-likelihood. If "ML" the log-likelihood is maximized. Defaults to "REML".
 #' @param pstd An indicator of whether standard deviation is desired. The default value is FALSE.
 #' @export
 #' @import mgcv
 #' @return A vector(s) of following component(s):
-#' \item{fit}{The low-rank approximation of cubic smoothing spline estimate.}
+#' \item{fit}{The Nystr\"{o}m approximation of cubic smoothing spline estimate.}
 #' \item{pstd}{The corrsponding posterior standard deviation.}
 #' @examples
 #' \dontrun{
 #' data(eigenM)
 #' x <- runif(1000)
 #' y <- sin(32*pi*x)-8*(x-.5)^2 + rnorm(1000)
-#' lrspline.cubic(x,y,xg,e,K,method="REML",pstd=FALSE)
+#' nystrom.cubic(x,y,xg,e,K,method="REML",pstd=FALSE)
 #' }
 
-lrspline.cubic <- function(x, y, xg, e, K=30, method="REML", pstd=FALSE) {
-  n <- length(x)
-  Z <- t(sqrt(1/e$values[1:K])*t(cubic(x,xg)%*%e$vectors[,1:K]))
+nystrom.cubic <- function(x, y, p=30, method="REML", pstd=FALSE){
+  n <- length(y)
+  selcol <- sort(sample(1:n,p))
+  W <- cubic(x[selcol])
+  w <- eigen(W)
+  C <-cubic(x,x[selcol])
+  Z <- t(1/sqrt(w$values)*t(C%*%w$vectors))
   all1 <- rep(1,n)
   tmp <- lme(y~x, random=list(all1=pdIdent(~Z-1)),method = method)
   if (pstd){
     T <-matrix(c(rep(1,n),x),nr=n)
     #sigmaM <- cubic(x)
-    v <- as.numeric(VarCorr(tmp)[K:(K+1),1])
-    A <- solve(crossprod(Z)+v[2]/v[1]*diag(K))
+    v <- as.numeric(VarCorr(tmp)[p:(p+1),1])
+    A <- solve(crossprod(Z)+v[2]/v[1]*diag(p))
     M.inv <-v[1]/v[2]*(diag(n)-Z%*%( tcrossprod( A ,Z) ) )
     TMT <- solve(t(T)%*%M.inv%*%T)
     #H <- M.inv-(M.inv%*%T)%*%TMT%*%(crossprod(T,M.inv))
@@ -39,9 +43,9 @@ lrspline.cubic <- function(x, y, xg, e, K=30, method="REML", pstd=FALSE) {
     cov <- -v[1]*(T%*%TMT)%*%(crossprod(T,M.inv)%*%tcrossprod(Z))
     VarCov <- var1+var2+2*cov
     pred <- list(fit=as.vector(tmp$fit[,2]),pstd=as.vector(sqrt(diag(VarCov))))
-
   } else{
     pred <- as.vector(tmp$fit[,2])
   }
   return(pred)
 }
+
