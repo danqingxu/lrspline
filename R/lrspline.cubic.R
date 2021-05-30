@@ -2,8 +2,8 @@
 #' @description Computes a low-rank approximation based on eigenspaces, where estimation utilizes functions for linear mixed effect model (LME).
 #' @param x The values of independent variable. It should be a vector.
 #' @param y The values of dependent variable. It should be a vector.
-#' @param xg The gridpoints used for approximation of
-#' @param e A list of two elements of "values" and "vectors", which refer respectively, the eigenvalues and eigenfunctions of reproducing kernel for cubic splines at the pre-selected gridpoints (must agree with xg).
+#' @param xg The grid points used for approximation of eigensystem.
+#' @param e A list of two elements of "values" and "vectors", which refer respectively, the eigenvalues and eigenfunctions of reproducing kernel for cubic splines at the pre-selected grid points (must agree with xg).
 #' @param K An integer value. The truncation parameter indicates the number of eigenvalues/eigenfunctions used in approximation. The default value is 30.
 #' @param method A character string. If "REML" the LME model is fit by maximizing the restricted log-likelihood. If "ML" the log-likelihood is maximized. Defaults to "REML".
 #' @param pstd An indicator of whether standard deviation is desired. The default value is FALSE.
@@ -17,7 +17,7 @@
 #' data(eigenM)
 #' x <- runif(1000)
 #' y <- sin(32*pi*x)-8*(x-.5)^2 + rnorm(1000)
-#' lrspline.cubic(x,y,xg,e,K,method="REML",pstd=FALSE)
+#' lrspline.cubic(x,y,eigenM$xg,eigenM$e,K,method="REML",pstd=FALSE)
 #' }
 
 lrspline.cubic <- function(x, y, xg, e, K=30, method="REML", pstd=FALSE) {

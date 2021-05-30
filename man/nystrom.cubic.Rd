@@ -17,8 +17,6 @@ nystrom.cubic(x, y, p = 30, method = "REML", pstd = FALSE)
 
 \item{pstd}{An indicator of whether standard deviation is desired. The default value is FALSE.}
 
-\item{xg}{The gridpoints used for approximation of}
-
 \item{e}{A list of two elements of "values" and "vectors", which refer respectively, the eigenvalues and eigenfunctions of reproducing kernel for cubic splines at the pre-selected gridpoints (must agree with xg).}
 }
 \value{

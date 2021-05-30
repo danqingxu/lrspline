@@ -2,7 +2,6 @@
 #' @description Computes a Nystrom approximation based on randomly selected columns of $\Sigma$ matrix, where estimation utilizes functions for linear mixed effect model (LME).
 #' @param x The values of independent variable. It should be a vector.
 #' @param y The values of dependent variable. It should be a vector.
-#' @param xg The gridpoints used for approximation of
 #' @param e A list of two elements of "values" and "vectors", which refer respectively, the eigenvalues and eigenfunctions of reproducing kernel for cubic splines at the pre-selected gridpoints (must agree with xg).
 #' @param p An integer value. The selection parameter indicates the number of columns for random selection and approximation. The default value is 30.
 #' @param method A character string. If "REML" the LME model is fit by maximizing the restricted log-likelihood. If "ML" the log-likelihood is maximized. Defaults to "REML".

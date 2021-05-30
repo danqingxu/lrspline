@@ -2,24 +2,24 @@
 % Please edit documentation in R/generate.eigen.cubic.R
 \name{generate.eigen.cubic}
 \alias{generate.eigen.cubic}
-\title{Gridpoints and Eigendecomposition of Reproducing Kernal for Cubic Splines}
+\title{Grid Points and Eigendecomposition of Reproducing Kernal for Cubic Splines}
 \usage{
 generate.eigen.cubic(N = 1000, a = 0, b = 1)
 }
 \arguments{
-\item{N}{The number of gridpoints. It should be an integer. The default value is 1000.}
+\item{N}{The number of grid points. It should be an integer. The default value is 1000.}
 
-\item{a}{The lower limit of the interval used for gridpoints. The default value is 0.}
+\item{a}{The lower limit of the interval used for grid points. The default value is 0.}
 
-\item{b}{The upper limit of the interval used for gridpoints. The default value is 1.}
+\item{b}{The upper limit of the interval used for grid points. The default value is 1.}
 }
 \value{
 It returns (and saves) a list of following components:
-\item{e}{A list of two elements of "values" and "vectors", which refer respectively, the eigenvalues and eigenfunctions of reproducing kernel for cubic splines at the pre-selected gridpoints.}
-\item{xg}{A vector of gridpoints.}
+\item{e}{A list of two elements of "values" and "vectors", which refer respectively, the eigenvalues and eigenfunctions of reproducing kernel for cubic splines at the pre-selected grid points.}
+\item{xg}{A vector of grid points.}
 }
 \description{
-Generates eigendecomposition from gridpoints from an interval.
+Generates eigendecomposition from grid points from an interval.
 }
 \examples{
 \dontrun{
