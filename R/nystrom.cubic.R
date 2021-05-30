@@ -1,5 +1,5 @@
-#' @title Nystr\"{o}m Approximation for Cubic Smoothing Spline Estimates
-#' @description Computes a Nystr\"{o}m approximation based on randomly selected columns of $\Sigma$ matrix, where estimation utilizes functions for linear mixed effect model (LME).
+#' @title Nystrom Approximation for Cubic Smoothing Spline Estimates
+#' @description Computes a Nystrom approximation based on randomly selected columns of $\Sigma$ matrix, where estimation utilizes functions for linear mixed effect model (LME).
 #' @param x The values of independent variable. It should be a vector.
 #' @param y The values of dependent variable. It should be a vector.
 #' @param xg The gridpoints used for approximation of
@@ -10,7 +10,7 @@
 #' @export
 #' @import mgcv
 #' @return A vector(s) of following component(s):
-#' \item{fit}{The Nystr\"{o}m approximation of cubic smoothing spline estimate.}
+#' \item{fit}{The Nystrom approximation of cubic smoothing spline estimate.}
 #' \item{pstd}{The corrsponding posterior standard deviation.}
 #' @examples
 #' \dontrun{

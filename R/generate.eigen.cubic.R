@@ -20,6 +20,6 @@ generate.eigen.cubic <- function(N=1000,a=0,b=1){
   Sigma <- cubic(xg)
   e <- eigen(Sigma)
   res <- list(e=e,xg=xg)
-  save(e,xg,file=paste("eigenM_",a,"&"b,"_",N,".rda",sep=""))
+  save(e,xg,file=paste("eigenM_",a,"&",b,"_",N,".rda",sep=""))
   return(res)
 }

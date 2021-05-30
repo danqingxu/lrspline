@@ -4,7 +4,7 @@ Title: Low-rank Approximation of Smoothing Splines for Massive Data
 Version: 0.1.0
 Author: Danqing Xu
 Maintainer: Danqing Xu <elisexu0308@gmail.com>
-Description: Functions for approximating the smoothing spline estimates: (1) Low-rank Approximation via Eigensystem Truncation, (2) Nystr\"{o}m Methods.
+Description: Functions for approximating the smoothing spline estimates: (1) Low-rank Approximation via Eigensystem Truncation, (2) Nystrom Methods.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
